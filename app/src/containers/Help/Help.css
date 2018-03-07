@@ -1,0 +1,27 @@
+.Help {
+    background-color: #f8f8f8;
+    height: 100vh;
+}
+
+.Top {
+    padding: 0.5em;
+    margin: 0;
+    font-size: 4em;
+    text-align: center;
+}
+
+.bread {
+    
+}
+
+.card {
+    background-color: #fff;
+    border: solid 1px #ebebeb;
+    padding: 1em;
+    margin-top: 1em;
+}
+
+.title {
+    margin: 0;
+    padding: 0;
+}

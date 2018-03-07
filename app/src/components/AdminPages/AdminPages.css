@@ -1,0 +1,14 @@
+.grid {
+    display: grid;
+    grid-template-columns: auto max-content;
+    grid-template-rows: auto;
+    grid-template-areas: "txt actions";
+    width: 100%;
+}
+
+.txt {
+    grid-area: txt;
+}
+.actions {
+    grid-area: actions;
+}

@@ -1,0 +1,138 @@
+.Post {
+    padding: 3em 0;
+    box-sizing: border-box;
+}
+
+.Post:nth-child(even) {
+    background: #f6f6f6;
+}
+
+.title {
+    font-size: 2.5em;
+    font-weight: 600;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    margin-bottom: 0.25em;
+}
+.paragraph {
+    color: #222;
+    line-height: 1.5em;
+    margin: 0;
+    margin-bottom: 0.5em;
+    font-size: 1.1em;
+}
+.paragraph:last-child {
+    margin-bottom: 0em;
+}
+.image {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    object-fit: cover;
+}
+
+div.grid {
+    display: grid;
+    grid-template-columns: 0;
+    grid-template-rows: max-content auto;
+    grid-template-areas: 
+        "boxImg boxTitle"
+        "boxImg boxText";
+}
+
+@media (max-width: 720px) {
+    div.grid {
+        display: grid;
+        grid-template-columns: 100% !important;
+        grid-template-rows: auto;
+        grid-template-areas: 
+            "boxImg"
+            "boxTitle"
+            "boxText" !important;
+    }
+    .boxText,
+    .boxTitle,
+    .boxImg {
+        padding: 0 !important;
+    }
+    .boxText, 
+    .boxTitle {
+        margin: 0 2em;
+    }
+    .boxImg {
+        margin-bottom: 1em;
+    }
+}
+
+div.boxImg {
+    grid-area: boxImg;
+    display: none;
+}
+div.boxTitle {
+    grid-area: boxTitle;
+    
+}
+div.boxText {
+    grid-area: boxText;
+}
+
+.fullTextLeft {
+    text-align: left;
+}
+.fullTextRight {
+    text-align: right;
+}
+.fullTextCenter {
+    text-align: center;
+}
+
+.fullTextCenter div.line {
+    margin: 0 auto;
+    margin-bottom: 1em;
+}
+.fullTextRight div.line {
+    float: right;
+    margin-bottom: 1em;
+}
+
+.halfTextLeft {
+    text-align: left;
+}
+.halfTextLeft .grid {
+    grid-template-columns: 50% 50%;
+}
+.halfTextLeft .boxImg {
+    display: block;
+    padding-right: 10px;
+}
+.halfTextLeft .boxTitle, 
+.halfTextLeft .boxText {
+    padding-left: 10px;
+}
+
+.halfTextRight {
+    text-align: left;
+}
+.halfTextRight div.grid {
+    grid-template-areas: 
+        "boxTitle boxImg"
+        "boxText boxImg";
+}
+.halfTextRight .grid {
+    grid-template-columns: 50% 50%;
+}
+.halfTextRight .boxImg {
+    display: block;
+    padding-right: 10px;
+}
+.halfTextRight .boxTitle, 
+.halfTextRight .boxText {
+    padding-right: 10px;
+}
+
+div.line {
+    width: 90px;
+    height: 4px;
+    background: #e09e73;
+    margin-bottom: 1em;
+}

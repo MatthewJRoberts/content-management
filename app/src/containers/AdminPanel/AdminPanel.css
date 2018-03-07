@@ -1,0 +1,81 @@
+.AdminPanel {
+    
+}
+
+p.toggle {
+    margin: 0;
+    padding: 1em 0;
+    text-align: center;
+    cursor: pointer;
+    border-top: solid 1px #dbdbdb;
+    transition: all 1s ease-out;
+}
+p.toggle:hover {
+    background-color: #f0f0f0;
+}
+
+.panel {
+    top: 0;
+    transition: 0.5s;
+    background: #fff;
+}
+.panelOpen .contents {
+    max-height: 320px;
+    overflow: hidden;
+    transition: 0.5s ease-out;
+}
+.panelClose .contents {
+    max-height: 0px;
+    overflow: hidden;
+    transition: 0.5s ease-out;
+}
+
+@keyframes open {
+    0% {
+        top: 100%;
+    }
+    100% {
+        top: 0%;
+    }
+}
+
+.header {
+    padding: 1em;
+    border-bottom: solid 1px #ccc;
+}
+.main {
+    padding: 1em;
+    max-height: 320px;
+    overflow-y: scroll;
+}
+.reset {
+    padding: 0;
+    margin: 0;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: auto;
+    grid-template-areas: 
+        "pages settings";
+}
+
+.grid .pages {
+    grid-area: pages;
+    padding: 0.5em;
+}
+.grid .settings {
+    grid-area: settings;
+    padding: 0.5em;
+}
+
+@media (max-width: 500px) {
+    .grid {
+        grid-template-columns: 100%;
+        grid-template-rows: auto auto;
+        grid-template-areas: 
+            "pages"
+            "settings";
+    }
+}

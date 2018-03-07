@@ -1,0 +1,24 @@
+div.photos {
+    width: 100%;
+    display: flex;
+    flex-flow: wrap;
+}
+
+div.photos div.photo {
+    flex: 1;
+    min-width: 200px;
+    max-width: 33%;
+    height: auto;
+    margin: 5px;
+    box-sizing: border-box;
+    border: solid 1px #ccc;
+    border-radius: 3px;
+}
+
+div.photos div.photo img {
+    width: 100%;
+}
+div.photos div.photo p {
+    padding: 0.25em 0em;
+    text-align: center;
+}

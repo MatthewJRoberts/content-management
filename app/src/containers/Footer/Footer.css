@@ -1,0 +1,34 @@
+.Footer {
+    background-color: #f6f6f6;
+    padding: 3em 0em;
+}
+
+.grid {
+    display: grid;
+    grid-gap: 1em;
+    grid-template-rows: auto;
+    grid-auto-columns: max-content auto;
+    grid-template-areas: 
+        "lrg sm";
+}
+.lrg {
+    grid-area: lrg;
+}
+.sm {
+    grid-area: sm;
+}
+
+@media (max-width: 720px) {
+    .grid {
+        grid-template-rows: auto;
+        grid-auto-columns: auto;
+        grid-template-areas: 
+            "lrg";
+    }
+    .sm {
+        display: none;
+    }
+    .lrg {
+        text-align: center;
+    }
+}

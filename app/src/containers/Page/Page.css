@@ -1,0 +1,25 @@
+.Page {
+    background-color: #fff;
+    min-height: 80vh;
+}
+
+@media (max-width: 720px) {
+    .Page {
+        box-shadow: 0px 0px 20px rgba(0,0,0,0.0);
+    }
+}
+
+.pagetitle {
+    color: #333;
+    background: #f6f6f6;
+
+    margin: 0;
+    padding: 2em 0;
+
+    font-size: 1.5em;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 0.03em;
+    text-align: center;
+}
