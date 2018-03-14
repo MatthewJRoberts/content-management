@@ -10,13 +10,15 @@ const pageThreeID = new ObjectID();
 const { users } = require('./users');
 const siteId = users[0]._id;
 
-let token = jwt.sign({_id: siteId, access: 'auth'}, config.private_key).toString();
+// let token = jwt.sign({_id: siteId, access: 'auth'}, config.private_key).toString();
+let token = users[0].token;
 
 const pages = [
     {
         _id: pageOneID,
         siteid: siteId,
         name: 'Sample Page One',
+        slug: 'sample-page-one',
         posts: [
             {
                 title: 'Sample Title One',
@@ -34,6 +36,7 @@ const pages = [
         _id: pageTwoID,
         siteid: siteId,
         name: 'Sample Page Two',
+        slug: 'sample-page-two',
         posts: [
             {
                 title: 'Sample Title One',
@@ -50,7 +53,8 @@ const pages = [
     {
         _id: pageThreeID,
         siteid: '59489535453568436345643',
-        name: 'Sample Page One',
+        name: 'Sample Page Three',
+        slug: 'sample-page-three',
         posts: [
             {
                 title: 'Sample Title One',

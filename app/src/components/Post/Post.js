@@ -1,15 +1,15 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import classes from './Post.css';
 
-import * as actionCreators from './../../store/actions/index';
 import Aux from './../../hoc/AuxComponent';
 
 const post = props => {
 
     let admin = null;
     if(props.isAuth) {
-        admin = <button className="ui button mini" onClick={ () => props.toggleModal(props.index) }>Edit Post</button>;
+        admin = <button 
+            className="ui button mini" 
+            onClick={ () => props.toggleModal(props.index) }>Edit Post</button>;
     }
 
     let postClass = [ classes.Post ];
@@ -71,16 +71,4 @@ const post = props => {
     );
 }
 
-const mapStateToProps = state => {
-    return {
-        isAuth: state.user.auth.token !== null
-    }
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        toggleModal: (postindex) => dispatch(actionCreators.toggle_modal_post(postindex))
-    }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(post);
+export default post;

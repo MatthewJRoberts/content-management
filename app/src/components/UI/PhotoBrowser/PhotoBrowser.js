@@ -1,7 +1,5 @@
 import React from 'react';
 import classes from './PhotoBrowser.css';
-import * as actionCreators from './../../../store/actions/index';
-import { connect } from 'react-redux';
 
 const photoBrowser = props => {
 
@@ -68,22 +66,4 @@ const photoBrowser = props => {
     );
 }
 
-const mapStateToProps = state => {
-    return {
-        token: state.user.auth.token,
-        isAuth: state.user.auth.token !== null,
-        photos: state.photo.photos
-    };
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-        toggleModalPhoto: () => dispatch(actionCreators.toggle_modal_photo()),
-        loadModalPhoto: (payload) => dispatch(actionCreators.load_modal_photo(payload)),
-        uploadModalPhoto: (payload) => dispatch(actionCreators.upload_modal_photo(payload)),
-        deleteModalPhoto: (payload) => dispatch(actionCreators.delete_modal_photo(payload)),
-        changeModalPost: (event, type) => dispatch(actionCreators.onChangePostHandler_post(event, type))
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(photoBrowser);
+export default photoBrowser;

@@ -1,9 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import classes from './Posts.css';
 
 import Post from './../Post/Post';
-import * as actionCreators from './../../store/actions/index';
 
 const posts = props => {
 
@@ -29,7 +27,12 @@ const posts = props => {
     let posts = <p style={ {textAlign: 'center'} }></p>;
     if(props.posts && props.posts.length > 0) {
         posts = props.posts.map((post, index) => {
-            return <Post key={ post._id } post={ post } index={ index } />;
+            return <Post 
+                key={ post._id } 
+                post={ post } 
+                index={ index }
+                toggleModal={ props.toggleModal }
+                isAuth={ props.isAuth } />;
         });
     }
 
@@ -41,16 +44,4 @@ const posts = props => {
     );
 };
 
-const mapStateToProps = state => {
-    return {
-        isAuth: state.user.auth.token !== null
-    }
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        toggleModal: (postindex) => dispatch(actionCreators.toggle_modal_post(postindex))
-    }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(posts);
+export default posts;

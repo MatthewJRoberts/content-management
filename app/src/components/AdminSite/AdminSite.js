@@ -1,7 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-
-import * as actionCreators from './../../store/actions/index';
 
 const adminSite = props => {
     
@@ -50,19 +47,4 @@ const adminSite = props => {
     );
 }
 
-const mapStateToProps = state => {
-    return {
-        site: state.sites.site,
-        siteEdit: state.sites.siteEdit,
-        token: state.user.auth.token
-    };
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-        settingChange: (payload) => dispatch(actionCreators.change_site_settings(payload)),
-        settingSave: (payload) => dispatch(actionCreators.save_site_settings(payload))
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(adminSite);
+export default adminSite;

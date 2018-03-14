@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import * as actionCreators from './../../../store/actions/index';
 
 const modalPage = props => {
 
@@ -17,11 +15,11 @@ const modalPage = props => {
         inputFields.name = props.pageEdit.name;
     }
 
-    let deleteButton = (<div className="ui red inverted button" onClick={ () => props.modalDelete({pageid: props.pageid, token: props.token}) }>
+    let deleteButton = (<div className="ui red inverted button" onClick={ () => props.modalDelete({pageid: props.pageId, token: props.token}) }>
                             Delete
                             <i className="right remove icon"></i>
                         </div>);
-    if(props.pageid === '') {
+    if(props.pageId === '') {
         deleteButton = null;
     }
 
@@ -50,7 +48,7 @@ const modalPage = props => {
                 </div>
                 <div className="actions">
 
-                    <div className="ui white inverted button" onClick={ props.toggleModal }>Cancel</div>
+                    <div className="ui white inverted button" onClick={ () => props.toggleModal() }>Cancel</div>
                     { deleteButton }
                     <div className="ui green ok inverted button" onClick={ () => props.modalSave({page: props.pageEdit, token: props.token}) }>
                         Save Page
@@ -63,21 +61,5 @@ const modalPage = props => {
     );
 }
 
-const mapStateToProps = state => {
-    return {
-        token: state.user.auth.token,
-        pageid: state.sites.selectedPageId,
-        pageEdit: state.sites.pageEdit
-    };
-};
 
-const mapDispatchToProps = dispatch => {
-    return {
-        toggleModal: () => dispatch(actionCreators.toggle_modal_page()),
-        modalChange: (payload) => dispatch(actionCreators.onChangePostHandler_page(payload)),
-        modalSave: (payload) => dispatch(actionCreators.save_modal_page(payload)),
-        modalDelete: (payload) => dispatch(actionCreators.delete_modal_page(payload))
-    }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(modalPage);
+export default modalPage;

@@ -155,18 +155,19 @@ router.put('/:id', authenticate, (req, res) => {
     let body = _.pick(req.body, ['name', 'slug', 'posts', 'isHome']);
 
     if(!body.isHome) {
-        let slug = body.slug;
+        let slug = body.name;
         slug = slug.replace(/[&\/\\#,+()$~%.'":*?<>{}!?¬^]/g,'');
         slug = slug.replace(/ /g, '-');
         slug = slug.toLowerCase();
         body.slug = slug;
-
+        
         if(body.slug === 'login' || body.slug === 'help' || body.slug === 'api') {
             body.slug = `${ body.slug }-${ Math.floor((Math.random() * 10) + (Math.random() * 10)) }`;
         }
         if(body.slug === '') {
             return res.status(400).send();
         }
+        
         Page.find({siteid: siteId}).then(pages => {
             if(pages !== undefined) {
                 for(let i = 0; i < pages.length; i++) {

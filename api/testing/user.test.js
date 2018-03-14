@@ -32,7 +32,7 @@ describe('TESTING User API', () => {
                 .get(`/users/${ users[0]._id }`)
                 .expect(200)
                 .expect(res => {
-                    expect(res.body.email).toEqual('mail@mail.com')
+                    expect(res.body._id.toString()).toEqual(users[0]._id.toString());
                 })
                 .end(done);
         });
@@ -43,19 +43,18 @@ describe('TESTING User API', () => {
     describe('GET /users/profile/me', () => {
         it('should get user if authenticated', done => {
             request(app)
-                .get('/users/profile/me')
-                .set('x-auth', users[0].tokens[0].token)
+                .post('/users/profile/me')
+                .set('token', users[0].token)
                 .expect(200)
                 .expect(res => {
-                    expect(res.body._id).toBe(users[0]._id.toHexString());
-                    expect(res.body.email).toBe(users[0].email);
+                    expect(res.body._id.toString()).toEqual(users[0]._id.toString());
                 })
                 .end(done);
         });
 
         it('should return 401 not authenticated', done => {
             request(app)
-                .get('/users/profile/me')
+                .post('/users/profile/me')
                 .expect(401)
                 .expect(res => {
                     expect(res.body).toEqual({})
@@ -70,8 +69,7 @@ describe('TESTING User API', () => {
         it('should create a new user', done => {
             request(app)
                 .post('/users')
-                .send({
-                    "email" : "mail3@mail.com",
+                .send({ 
                     "password" : "password123321",
                     "site": {
                         "name": 'Site Sample',
@@ -79,18 +77,14 @@ describe('TESTING User API', () => {
                     }
                 })
                 .expect(200)
-                .expect((res) => {
-                    expect(res.headers['x-auth']).toBeTruthy();
+                .expect(res => {
+                    expect(res.body._id).toBeTruthy();
                 })
                 .end(err => {
                     if(err) {
                         return done(err);
                     }
-
-                    User.findOne({email: 'mail3@mail.com'}).then(user => {
-                        expect(user).toBeTruthy();
-                        done();
-                    });
+                    done();
                 });
         });
 
@@ -104,17 +98,7 @@ describe('TESTING User API', () => {
                 .expect(400)
                 .end(done);
         });
-
-        it('should not create user if email is in use', done => {
-            request(app)
-                .post('/users')
-                .send({
-                    email: users[0].email,
-                    password: '123321321'
-                })
-                .expect(400)
-                .end(done);
-        });
+        
     });
 
 });

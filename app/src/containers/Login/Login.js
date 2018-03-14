@@ -8,11 +8,13 @@ import ModalPass from './../../components/UI/ModalPass/ModalPass';
 class Login extends Component {
 
     componentDidMount() {
+        // Redirects logged in users to the front page
         if(this.props.isAuth) {
             this.props.history.push('/');
         }
     }
     componentDidUpdate() {
+        // Redirects logged in users to the front page
         if(this.props.isAuth) {
             this.props.history.push('/');
         }
@@ -20,6 +22,7 @@ class Login extends Component {
 
     render() {
 
+        // Error Handling
         let error = null;
         if(this.props.error) {
             error = <p 
@@ -32,7 +35,12 @@ class Login extends Component {
             <div className={ classes.Login }>
 
                 <div className={ classes.mid }>
-                    <ModalPass />
+                    <ModalPass
+                        active={ this.props.active }
+                        passInput={ this.props.passInput }
+                        toggleModal={ this.props.toggleModal }
+                        changeModal={ this.props.changeModal }
+                        resetModal={ this.props.resetModal } />
                     { error }
 
                     <h3>Administrator Area</h3>
@@ -67,16 +75,20 @@ const mapStateToProps = state => {
     return {
         input: state.user.input,
         error: state.user.error,
-        isAuth: state.user.auth.token !== null
+        isAuth: state.user.auth.token !== null,
+        active: state.user.showPassModal,
+        passInput: state.user.passInput
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        inputPassword: (payload) => dispatch(actionCreators.input_password(payload)),
-        userLogin: (payload) => dispatch(actionCreators.user_signin(payload)),
+        inputPassword: payload => dispatch(actionCreators.input_password(payload)),
+        userLogin: payload => dispatch(actionCreators.user_signin(payload)),
         errorRemove: () => dispatch(actionCreators.user_err_remove()),
-        toggleModal: () => dispatch(actionCreators.toggle_modal_pass())
+        toggleModal: payload => dispatch(actionCreators.toggle_modal_pass(payload)),
+        changeModal: payload => dispatch(actionCreators.change_modal_pass(payload)),
+        resetModal: payload => dispatch(actionCreators.reset_modal_pass(payload))
     }
 }
 

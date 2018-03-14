@@ -16,11 +16,13 @@ class Header extends Component {
     }
 
     render() {
+        // Opens AdminPanel if showMenu === true
         let menuClasses = [classes.links];
         if(this.props.showMenu) {
             menuClasses.push(classes.open);
         }
 
+        // Makes banner small if not on homepage
         let bannerClasses = [classes.banner];
         if(this.props.page.slug !== '') {
             bannerClasses.push(classes.mini);
@@ -42,7 +44,10 @@ class Header extends Component {
                                     </div>
                                 </div>
                                 <div className={ menuClasses.join(' ') }>
-                                    <NavPrimary />
+                                    <NavPrimary
+                                        pages={ this.props.pages }
+                                        site={ this.props.site }
+                                        getPage={ this.props.getPage } />
                                 </div>
                             </div>
                         </div>
@@ -67,13 +72,13 @@ const mapStateToProps = state => {
         page: state.sites.page,
         site: state.sites.site,
         isAuth: state.user.auth.token !== null,
-        showMenu: state.sites.showMenu
+        showMenu: state.sites.showMenu,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        getPage: (slug) => dispatch(actionCreators.get_page(slug)),
+        getPage: slug => dispatch(actionCreators.get_page(slug)),
         getSite: () => dispatch(actionCreators.get_site()),
         getPages: () => dispatch(actionCreators.get_pages()),
         toggleMenu: () => dispatch(actionCreators.toggle_menu())

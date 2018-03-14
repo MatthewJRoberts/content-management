@@ -77,8 +77,9 @@ export const save_modal_post = ( payload ) => {
             name: newPage.name, 
             posts: newPage.posts,
             slug: newPage.slug,
-            isHome: newPage.isHome || false,
-            token: payload.token 
+            isHome: newPage.isHome || false
+        }, {
+            headers: {'token': payload.token}
         }).then(response => {
             dispatch(save_modal_send_post(response.data));
         }).catch(e => dispatch(err(`Post failed to save. (${e.message})`)));
@@ -99,8 +100,9 @@ export const delete_modal_post = ( payload ) => {
             name: newPage.name, 
             posts: newPage.posts,
             slug: newPage.slug,
-            isHome: newPage.isHome,
-            token: payload.token
+            isHome: newPage.isHome
+        }, {
+            headers: { 'token': payload.token }
         }).then(response => {
             dispatch(save_modal_send_post(response.data));
         }).catch(e => dispatch(err(`Post failed to delete. (${e.message})`)));
@@ -138,14 +140,18 @@ export const save_modal_page = ( payload ) => {
             posts: []
         };
         return dispatch => {
-            axios.post('/pages', { ...newPage, token: payload.token }).then(response => {
+            axios.post('/pages', { ...newPage}, {
+                headers: { 'token': payload.token }
+            }).then(response => {
                 return dispatch(save_modal_page_send(response.data));
             }).catch(e => dispatch(err(`Page Modal cannot toggle. (${e.message})`)));
         };
     }
 
     return dispatch => {
-        axios.put(`/pages/${ payload.page._id }`, { ...payload.page, token: payload.token }).then(response => {
+        axios.put(`/pages/${ payload.page._id }`, { ...payload.page }, {
+            headers: { 'token': payload.token }
+        }).then(response => {
             return dispatch(save_modal_page_send(response.data));
         }).catch(e => dispatch(err(e.message)));
     };
@@ -159,7 +165,9 @@ export const save_modal_page_send = ( payload ) => {
 
 export const delete_modal_page = ( payload ) => {
     return dispatch => {
-        axios.post(`/pages/${ payload.pageid }`, {token: payload.token}).then(repsonse => {
+        axios.post(`/pages/${ payload.pageid }`, null, {
+            headers: { 'token': payload.token }
+        }).then(repsonse => {
             return dispatch(delete_modal_page_send(repsonse.data));
         }).catch(e => dispatch(err(`Page failed to delete. (${e.message})`)));
     };
@@ -180,7 +188,9 @@ export const change_site_settings = ( payload ) => {
 
 export const save_site_settings = ( payload ) => {
     return dispatch => {
-        axios.put('/users/', { site: payload.siteEdit, token: payload.token }).then(response => {
+        axios.put('/users/', { site: payload.siteEdit }, {
+            headers: { 'token': payload.token }
+        }).then(response => {
             dispatch(save_site_settings_send(response.data.site));
         }).catch(e => dispatch(err(`Site Settings unable to save. (${e.message})`)));
     };

@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import * as actionCreators from './../../../store/actions/index';
 
 const modalPage = props => {
 
@@ -72,19 +70,4 @@ const modalPage = props => {
     );
 }
 
-const mapStateToProps = state => {
-    return {
-        active: state.user.showPassModal,
-        passInput: state.user.passInput
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        toggleModal: () => dispatch(actionCreators.toggle_modal_pass()),
-        changeModal: (payload) => dispatch(actionCreators.change_modal_pass(payload)),
-        resetModal: (payload) => dispatch(actionCreators.reset_modal_pass(payload))
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(modalPage);
+export default modalPage;

@@ -8,7 +8,7 @@ import asyncComponent from './hoc/AsyncComponent';
 import Layout from './components/Layout/Layout';
 import Page from './containers/Page/Page';
 const AsyncLogin = asyncComponent(() => import('./containers/Login/Login'));
-const AsyncHelp = asyncComponent(() => import('./containers/Help/Help'));
+const AsyncHelp = asyncComponent(() => import('./components/Help/Help'));
 
 class App extends Component {
 

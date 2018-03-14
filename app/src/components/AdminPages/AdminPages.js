@@ -1,9 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import classes from './AdminPages.css';
 
-import * as actionCreators from './../../store/actions/index';
+import classes from './AdminPages.css';
 
 const adminPages = props => {
 
@@ -51,17 +49,4 @@ const adminPages = props => {
     );
 }
 
-const mapStateToProps = state => {
-    return  {
-        pages: state.sites.pages
-    }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-        getPage: (slug) => dispatch(actionCreators.get_page(slug)),
-        toggleModal: (payload) => dispatch(actionCreators.toggle_modal_page(payload))
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(adminPages);
+export default adminPages;

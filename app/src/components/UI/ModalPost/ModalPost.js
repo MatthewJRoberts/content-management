@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import * as actionCreators from './../../../store/actions/index';
 
 import Aux from './../../../hoc/AuxComponent';
 import PhotoBrowser from './../PhotoBrowser/PhotoBrowser';
@@ -40,7 +38,16 @@ const modalPost = props => {
 
     return (
         <Aux>
-            <PhotoBrowser active={ photoBrowserActive } />
+            <PhotoBrowser 
+                active={ photoBrowserActive }
+                token={ props.token }
+                isAuth={ props.isAuth }
+                photos={ props.photos }
+                toggleModalPhoto={ props.toggleModalPhoto }
+                uploadModalPhoto={ props.uploadModalPhoto }
+                deleteModalPhoto={ props.deleteModalPhoto }
+                changeModalPost={ props.changeModalPost } />
+                 
             <div className={ dimmerClasses.join(' ') } style={{position: 'fixed'}}>
                 <div className="ui active modal" style={ {top: '20%'} }>
                     <div className="header">Edit A Post</div>
@@ -105,26 +112,4 @@ const modalPost = props => {
     );
 }
 
-const mapStateToProps = state => {
-    return {
-        show: state.sites.showPostModal,
-        showPhoto: state.photo.showPhotoBrowser,
-        page: state.sites.page,
-        post: state.sites.post,
-        postIndex: state.sites.selectedPostIndex,
-        token: state.user.auth.token,
-        imageName: state.sites.selectedImageName
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        toggleModalPhoto: () => dispatch(actionCreators.toggle_modal_photo()),
-        toggleModal: () => dispatch(actionCreators.toggle_modal_post()),
-        modalChange: (event, type) => dispatch(actionCreators.onChangePostHandler_post(event, type)),
-        modalSave: (payload) => dispatch(actionCreators.save_modal_post(payload)),
-        modalDelete: (payload) => dispatch(actionCreators.delete_modal_post(payload))
-    }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(modalPost);
+export default modalPost;

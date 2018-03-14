@@ -23,7 +23,9 @@ export const user_signin_send = ( payload ) => {
 export const user_signout = () => {
     let token = cookies.get('token');
     return dispatch => {
-        axios.put('/users/profile/token', { token: token }).then(response => {
+        axios.put('/users/profile/token', null, {
+            headers: {'token': token}
+        }).then(response => {
             dispatch(user_signout_send());
         }).catch(e => dispatch(err(`Failed to sign out. (${e.message})`)));
     }
@@ -48,7 +50,9 @@ export const user_authChecker = () => {
         if(currentTime >= expireTime) {
             return dispatch(user_signout_send());
         }
-        axios.post('/users/profile/me', { token: token }).then(response => {
+        axios.post('/users/profile/me', null, {
+            headers: {'token': token}
+        }).then(response => {
             return dispatch(user_signin_send({...response.data, token}));
         }).catch(e => {
             return dispatch(user_signout_send());

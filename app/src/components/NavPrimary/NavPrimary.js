@@ -1,9 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import classes from './NavPrimary.css';
 
-import * as actionCreators from './../../store/actions/index';
+import classes from './NavPrimary.css';
 
 const navPrimary = props => {
     let links = <p>No Pages Found</p>;
@@ -27,17 +25,4 @@ const navPrimary = props => {
     );
 }
 
-const mapStateToProps = state => {
-    return {
-        pages: state.sites.pages,
-        site: state.sites.site
-    }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-        getPage: (slug) => dispatch(actionCreators.get_page(slug))
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(navPrimary);
+export default navPrimary;

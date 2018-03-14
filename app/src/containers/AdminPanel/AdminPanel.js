@@ -25,8 +25,8 @@ class AdminPanel extends Component {
 
     render() {
 
+        // Opens admin panel if showPanel === true
         let panelClasses = [ classes.panel ];
-        
         if(this.state.showPanel) {
             panelClasses.push( classes.panelOpen );
         } else {
@@ -51,7 +51,17 @@ class AdminPanel extends Component {
 
         return (
             <div>
-                {this.props.isAuth ? <ModalPage active={ this.props.showModal } /> : null}
+
+                {this.props.isAuth ? <ModalPage 
+                    active={ this.props.showModal }
+                    token={ this.props.token }
+                    pageId={ this.props.pageId }
+                    pageEdit={ this.props.pageEdit }
+                    modalChange={ this.props.modalChange }
+                    modalSave={ this.props.modalSave }
+                    modalDelete={ this.props.modalDelete }
+                    toggleModal={ this.props.toggleModal } /> : null}
+
                 <div className={ panelClasses.join(' ') }>
                     <div className="container">
                         <div className={ classes.contents }>
@@ -68,12 +78,20 @@ class AdminPanel extends Component {
                                 <div className={ classes.grid }>
                                     <div className={ classes.pages }>
 
-                                        <AdminPages />
+                                        <AdminPages
+                                            pages={ this.props.pages }
+                                            getPage={ this.props.getPage }
+                                            toggleModal={ this.props.toggleModal } />
 
                                     </div>
                                     <div className={ classes.settings }>
                                     
-                                        <AdminSite />
+                                        <AdminSite
+                                            token={ this.props.token }
+                                            site={ this.props.site }
+                                            siteEdit={ this.props.siteEdit }
+                                            settingChange={ this.props.settingChange }
+                                            settingSave={ this.props.settingSave } />
                                     
                                     </div>
                                 </div>
@@ -111,7 +129,14 @@ const mapDispatchToProps = dispatch => {
     return {
         userSignout: () => dispatch(actionCreators.user_signout()),
         errorRemove: () => dispatch(actionCreators.sites_err_remove()),
-        loadModalPhoto: (payload) => dispatch(actionCreators.load_modal_photo(payload))
+        loadModalPhoto: payload => dispatch(actionCreators.load_modal_photo(payload)),
+        modalChange: payload => dispatch(actionCreators.onChangePostHandler_page(payload)),
+        modalSave: payload => dispatch(actionCreators.save_modal_page(payload)),
+        modalDelete: payload => dispatch(actionCreators.delete_modal_page(payload)),
+        toggleModal: payload => dispatch(actionCreators.toggle_modal_page(payload)),
+        settingChange: payload => dispatch(actionCreators.change_site_settings(payload)),
+        settingSave: payload => dispatch(actionCreators.save_site_settings(payload)),
+        getPage: slug => dispatch(actionCreators.get_page(slug))
     }
 }
 
@@ -120,7 +145,12 @@ const mapStateToProps = state => {
         isAuth: state.user.auth.token !== null,
         token: state.user.auth.token,
         showModal: state.sites.showPageModal,
-        error: state.sites.error
+        error: state.sites.error,
+        pageId: state.sites.selectedPageId,
+        pageEdit: state.sites.pageEdit,
+        site: state.sites.site,
+        siteEdit: state.sites.siteEdit,
+        pages: state.sites.pages
     }
 }
 

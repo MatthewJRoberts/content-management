@@ -57,7 +57,7 @@ describe('TESTING Pages API', () => {
         it('should post a new page', done => {
             request(app)
                 .post('/pages')
-                .set('x-auth', token)
+                .set('token', token)
                 .send({
                     "name": 'SamplePage',
                     "posts": []
@@ -86,23 +86,24 @@ describe('TESTING Pages API', () => {
     describe('POST /pages/:id', () => {
         it('should update a page', done => {
             request(app)
-                .put(`/pages/${ pages[0]._id }`)
-                .set('x-auth', token)
+                .put(`/pages/${ pages[1]._id }`)
+                .set('token', token)
                 .send({
                     "name": "Sample Page UPDATED"
                 })
                 .expect(200)
                 .expect(res => {
-                    expect(res.body.name).toEqual('Sample Page UPDATED')
+                    expect(res.body.name).toEqual('Sample Page UPDATED');
                 })
                 .end(done);
         });
 
         it('should fail to update due to authorization', done => {
             request(app)
-                .put(`/pages/${ pages[0]._id }`)
+                .put(`/pages/${ pages[1]._id }`)
                 .send({
-                    "name": "Sample Page UPDATED"
+                    "name": "Sample Page UPDATED",
+                    "slug": "sample-page-UPDATED"
                 })
                 .expect(401)
                 .end(done);
@@ -114,18 +115,18 @@ describe('TESTING Pages API', () => {
     describe('DELETE /pages/:id', () => {
         it('should delete a page', done => {
             request(app)
-                .delete(`/pages/${ pages[0]._id }`)
-                .set('x-auth', token)
+                .post(`/pages/${ pages[1]._id }`)
+                .set('token', token)
                 .expect(200)
                 .expect(res => {
-                    expect(res.body._id).toEqual(pages[0]._id.toHexString())
+                    expect(res.body._id).toEqual(pages[1]._id.toHexString())
                 })
                 .end(done);
         });
 
         it('should fail to delete due to authorization', done => {
             request(app)
-                .delete(`/pages/${ pages[0]._id }`)
+                .post(`/pages/${ pages[1]._id }`)
                 .expect(401)
                 .end(done);
         });

@@ -14,10 +14,7 @@ const users = [{
         name: 'Site Sample',
         desc: 'lorem...'
     },
-    tokens: [{
-        access: 'auth',
-        token: jwt.sign({_id: userIdOne, access: 'auth'}, config.private_key).toString()
-    }]
+    token: jwt.sign({_id: userIdOne, access: 'auth'}, config.private_key).toString()
 },
 {
     _id: userIdTwo,

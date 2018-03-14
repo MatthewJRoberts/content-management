@@ -1,7 +1,7 @@
 var { User } = require('./../models/user');
 
 var authenticate = (req, res, next) => {
-    let token = req.body.token;
+    let token = req.headers['token'];
     User.findByToken(token).then((user) => {
         if(!user) {
             return Promise.reject();
